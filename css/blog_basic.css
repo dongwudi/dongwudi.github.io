@@ -542,3 +542,8 @@ dl dt {
 .category-list-item{
   list-style: none;
 }
+
+.music{
+  width: 100%;
+  margin: 0px auto;
+}
