@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Author Name,name@example.com"><title>React学习总结3--生命周期函数 · 琉璃_心</title><meta name="description" content="每个组件都包含“生命周期方法”。速查表。
+demos源码
+挂载当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下：
+
+constructor()
+static getDerivedStateFromProps()会在调用 render 方法之前调用，并且在初始挂载及后续更新时都会被调用。它"><meta name="keywords" content="Hexo,HTML,CSS,android,Linux"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title><a href="/">琉璃_心</a></h3><div class="description"><p>念念不忘～</p></div></div></div><ul class="social-links"><li><a href="http://github.com/dongwudi/"><i class="fa fa-github"></i></a></li></ul><iframe class="music" frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=25706282&amp;auto=1&amp;height=66"></iframe><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li><a href="/about">关于</a></li></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>React学习总结3--生命周期函数</a></h3></div><div class="post-content"><p>每个组件都包含“生命周期方法”。<a href="http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/" target="_blank" rel="noopener">速查表</a>。
+<a href="https://github.com/dongwudi/react-family-code/tree/master/demos" target="_blank" rel="noopener">demos源码</a></p>
+<h2 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h2><p>当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下：</p>
+<ul>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#constructor" target="_blank" rel="noopener"><strong><code>constructor()</code></strong></a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops" target="_blank" rel="noopener"><code>static getDerivedStateFromProps()</code></a><br>会在调用 render 方法之前调用，并且在初始挂载及后续更新时都会被调用。它应返回一个对象来更新 state，如果返回 null 则不更新任何内容。此方法无权访问组件实例</li>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#render" target="_blank" rel="noopener"><strong><code>render()</code></strong></a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#componentdidmount" target="_blank" rel="noopener"><strong><code>componentDidMount()</code></strong></a><br>挂载结束调用，通常在此进行数据请求。</li>
+</ul>
+<p>如果上层组件中有Component组件以及PureComponent组件，那么打印出生命周期的调用结果为：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9279065-c277ad7032564206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="挂载阶段"></p>
+<p>这里使用了PureComponent，它会在<code>shouldComponentUpdate</code>中对 props 和 state 进行浅层比较，并减少了跳过必要更新的可能性。可以通过update过程来验证。</p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下：</p>
+<ul>
+<li><p><a href="https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromprops" target="_blank" rel="noopener"><code>static getDerivedStateFromProps()</code></a></p>
+</li>
+<li><p><a href="https://zh-hans.reactjs.org/docs/react-component.html#shouldcomponentupdate" target="_blank" rel="noopener"><code>shouldComponentUpdate()</code></a></p>
+</li>
+<li><p><a href="https://zh-hans.reactjs.org/docs/react-component.html#render" target="_blank" rel="noopener"><strong><code>render()</code></strong></a></p>
+</li>
+<li><p><a href="https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate" target="_blank" rel="noopener"><code>getSnapshotBeforeUpdate()</code></a></p>
+</li>
+<li><p><a href="https://zh-hans.reactjs.org/docs/react-component.html#componentdidupdate" target="_blank" rel="noopener"><strong><code>componentDidUpdate()</code></strong></a><br>如果点击执行setState更新，打印结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">getDerivedStateFromProps</span><br><span class="line">shouldComponentUpdate</span><br><span class="line">render</span><br><span class="line">-sub getDerivedStateFromProps</span><br><span class="line">-sub render</span><br><span class="line">------com getDerivedStateFromProps</span><br><span class="line">------com render</span><br><span class="line">---puresub getDerivedStateFromProps</span><br><span class="line">getSnapshotBeforeUpdate</span><br><span class="line">------com componentDidUpdate</span><br><span class="line">-sub componentDidUpdate</span><br><span class="line">componentDidUpdate</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>可以发现PureComponent并没有重新render,这是因为shouldcomponentupdate返回了false。我们可以多使用PureComponent来减少不必要的渲染过程，进而优化性能。</p>
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><p>当组件从 DOM 中移除时会调用如下方法：</p>
+<ul>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#componentwillunmount" target="_blank" rel="noopener"><strong><code>componentWillUnmount()</code></strong></a></li>
+</ul>
+<h4 id><a href="#" class="headerlink" title></a><a href="https://zh-hans.reactjs.org/docs/react-component.html#error-handling" target="_blank" rel="noopener"></a></h4><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>当渲染过程，生命周期，或子组件的构造函数中抛出错误时，会调用如下方法：</p>
+<ul>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#static-getderivedstatefromerror" target="_blank" rel="noopener"><code>static getDerivedStateFromError()</code></a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/react-component.html#componentdidcatch" target="_blank" rel="noopener"><code>componentDidCatch()</code></a></li>
+</ul>
+<h3 id="-1"><a href="#-1" class="headerlink" title></a><a href="https://zh-hans.reactjs.org/docs/react-component.html#other-apis" target="_blank" rel="noopener"></a></h3><h2 id="可以使用setState的生命周期"><a href="#可以使用setState的生命周期" class="headerlink" title="可以使用setState的生命周期"></a>可以使用setState的生命周期</h2><ul>
+<li>componentWillMount</li>
+<li>componentDidMount</li>
+<li>componentDidUpdate<br>这里必须要有前置条件，否则会陷入update的死循环。</li>
+</ul>
+<h2 id="static-getDerivedStateFromProps-props-state"><a href="#static-getDerivedStateFromProps-props-state" class="headerlink" title="static getDerivedStateFromProps(props, state)"></a>static getDerivedStateFromProps(props, state)</h2><p>这个生命周期适用于 state 的值在任何时候都取决于 props。让组件在 props 变化时更新 state。</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-08-15</span><i class="fa fa-tag"></i><a class="tag" href="/categories/react/" title="react">react </a><a class="tag" href="/tags/react/" title="react">react </a></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" href="http://twitter.com/home?status=,dongyj.vip/2019/08/15/React学习总结3-生命周期函数/,琉璃_心,React学习总结3--生命周期函数,;"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/2019/08/15/React学习总结4-事件处理/" title="React学习总结4--事件处理">Post Anterior</a></li><li class="next pagbuttons"><a class="btn" role="navigation" href="/2019/08/15/React学习总结2-state与props/" title="React学习总结2--state与props">Próximo post</a></li></ul></div><a id="comments"></a><div id="vcomments" style="margin:0 30px;"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js?v=undefined"></script><script>var valine = new Valine({
+  el:'#vcomments',
+  notify:false || false, 
+  verify:false|| false, 
+  app_id:'ypfO5Nw6qb2H1p8KpMWPNMah-gzGzoHsz',
+  app_key:'t6Y8qKbXWIQubiwseBIfFOuX',
+  placeholder:'enter',
+  path: window.location.pathname,
+  avatar:'wavatar'
+})</script></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
